@@ -18,7 +18,7 @@ interface ProductProps {
 
 type SellingSectionProps = {
   sectionTitle: string;
-  productType: "eletronics" | "appleProducts";
+  productType: "eletronics" | "appleProducts" | "jewelery";
 };
 
 const SellingSection: React.FC<SellingSectionProps> = ({
@@ -39,10 +39,11 @@ const SellingSection: React.FC<SellingSectionProps> = ({
     }
   };
 
+  const [eletronics, setEletronics] = useState<ProductProps[] | null>(null);
   const [appleProducts, setAppleProducts] = useState<ProductProps[] | null>(
     null
   );
-  const [eletronics, setEletronics] = useState<ProductProps[] | null>(null);
+  const [jewelery, setJewelery] = useState<ProductProps[] | null>(null);
 
   async function getProducts(
     url: string,
@@ -51,13 +52,11 @@ const SellingSection: React.FC<SellingSectionProps> = ({
     const res = await fetch(url);
     const data = await res.json();
     {
-      productType == "eletronics" && setProduct(data);
+      (productType == "eletronics" || "jewelery") && setProduct(data);
     }
     {
       productType == "appleProducts" && setProduct(data.products);
     }
-
-    console.log(data);
   }
 
   useEffect(() => {
@@ -68,6 +67,10 @@ const SellingSection: React.FC<SellingSectionProps> = ({
     getProducts(
       "https://mks-frontend-challenge-04811e8151e6.herokuapp.com/api/v1/products?page=1&rows=8&sortBy=id&orderBy=ASC",
       setAppleProducts
+    );
+    getProducts(
+      "https://fakestoreapi.com/products/category/jewelery",
+      setJewelery
     );
   }, []);
 
@@ -109,6 +112,18 @@ const SellingSection: React.FC<SellingSectionProps> = ({
               productPrice={item.price}
               productTitle={item.name}
               productImage={item.photo}
+            />
+          ))}
+
+        {productType === "jewelery" &&
+          jewelery &&
+          jewelery.length > 0 &&
+          jewelery.map((item: ProductProps) => (
+            <ProductCard
+              key={item.id}
+              productPrice={item.price}
+              productTitle={item.title}
+              productImage={item.image}
             />
           ))}
 

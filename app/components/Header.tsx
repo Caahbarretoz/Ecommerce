@@ -9,7 +9,7 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const secondSection = document.getElementById("second-section");
+      const secondSection = document.getElementById("services");
       if (secondSection) {
         const secondSectionTop = secondSection.getBoundingClientRect().top;
 
@@ -55,28 +55,29 @@ const Header = () => {
             Home
           </a>
           <a
-            href="#home"
+            href="#services"
             className="hover:text-hover transition-all duration-500"
           >
             Services
           </a>
           <a
-            href="#home"
+            href="#products"
             className="hover:text-hover transition-all duration-500"
           >
             Products
           </a>
+
           <a
-            href="#home"
-            className="hover:text-hover transition-all duration-500"
-          >
-            Watches
-          </a>
-          <a
-            href="#home"
+            href="#sale"
             className="hover:text-hover transition-all duration-500"
           >
             Sale
+          </a>
+          <a
+            href="#contact"
+            className="hover:text-hover transition-all duration-500"
+          >
+            Contact
           </a>
         </div>
         <div className="flex text-principal items-center space-x-6 ml-24 mr-20 text-lg">
