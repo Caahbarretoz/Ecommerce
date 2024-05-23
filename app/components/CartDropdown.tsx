@@ -1,33 +1,66 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GrClose } from "react-icons/gr";
 import ItemCartDropdown from "./ItemCartDropdown";
+import { Product } from "./ProductCard";
 
-const CartDropdown = () => {
-  const [modalState, setModalState] = useState("flex");
-  function closeCart() {
-    setModalState("hidden");
-  }
+type CartDropdownProps = {
+  isOpen: boolean;
+  cartItems: Product[];
+  toggleCart: () => void;
+};
+
+const CartDropdown = ({ isOpen, cartItems, toggleCart }: CartDropdownProps) => {
+  const [cartItemsList, setCartItemsList] = useState<Product[]>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    if (cartItems) {
+      const productsWithPricesAsNumbers = cartItems.map((item) => ({
+        ...item,
+        price: Number(item.price),
+      }));
+      setCartItemsList(productsWithPricesAsNumbers);
+    }
+  }, [cartItems]);
+
+  useEffect(() => {
+    if (cartItemsList.length > 0) {
+      const total = cartItemsList.reduce((sum, item) => sum + item.price, 0);
+      setTotalPrice(total);
+    }
+  }, [cartItemsList]);
   return (
     <div
-      className={`fixed ${modalState} flex-col items-center bg-white top-0 right-0 w-96 h-full z-40`}
+      className={`fixed ${
+        isOpen == true ? "flex" : "hidden"
+      } flex-col items-center bg-white top-0 right-0 w-96 h-full z-40`}
     >
       <h1 className=" mt-20 mr-auto ml-5 text-black font-bold tracking-wide text-2xl">
-        Carrinho
+        Cart
       </h1>
       <div
         className=" absolute right-5 top-20 flex items-center w-8 h-8 justify-center text-white text-sm bg-principal opacity-90 hover:opacity-100 rounded-full p-1 cursor-pointer"
-        onClick={closeCart}
+        onClick={toggleCart}
       >
         <GrClose />
       </div>
-      <div className="flex flex-col items-center overflow-y-auto w-full scrollbar-hide mb-24 pb-5">
-        <ItemCartDropdown />
+      <div className="flex flex-col items-center overflow-y-auto w-full scrollbar-hide mb-36 pb-5 ">
+        {cartItemsList.length > 0 ? (
+          cartItemsList.map((item) => (
+            <ItemCartDropdown key={item.id} product={item} />
+          ))
+        ) : (
+          <h1 className="mt-5">Empty Cart!</h1>
+        )}
       </div>
-      <div className="bg-principal opacity-85 hover:opacity-100 absolute flex justify-center items-center bottom-0 h-24 w-full cursor-pointer">
-        <h1 className="text-white font-bold text-xl tracking-wide">
-          Finalizar Compra
-        </h1>
+      {cartItemsList.length > 0 && (
+        <div className="text-black absolute bottom-24 flex items-center justify-center py-2">
+          <span>Total: ${totalPrice}</span>
+        </div>
+      )}
+      <div className="bg-principal opacity-85 hover:opacity-100 flex justify-center items-center absolute bottom-0 h-24 w-full cursor-pointer">
+        <h1 className="text-white font-bold text-xl tracking-wide">Checkout</h1>
       </div>
     </div>
   );

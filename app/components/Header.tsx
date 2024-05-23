@@ -29,10 +29,6 @@ const Header = () => {
     };
   }, []);
 
-  const [openModal, setOpenModal] = useState(false);
-  function openCart() {
-    setOpenModal(!openModal);
-  }
   return (
     <>
       <header
@@ -84,12 +80,11 @@ const Header = () => {
           <button className="hover:text-hover">
             <IoIosSearch />
           </button>
-          <button className="hover:text-hover" onClick={openCart}>
+          <button className="hover:text-hover">
             <BsBag />
           </button>
         </div>
       </header>
-      {openModal && <CartDropdown />}
     </>
   );
 };

@@ -2,28 +2,23 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight, FaArrowRight } from "react-icons/fa";
 import ProductCard from "./ProductCard";
-
-interface ProductProps {
-  category: string;
-  description: string;
-  id: number;
-  image: string;
-  price: number;
-  rating: object;
-  title: string;
-  name: string;
-  brand: string;
-  photo: string;
-}
+import { ProductProps } from "./interfaces-types";
+import { Product } from "./ProductCard";
 
 type SellingSectionProps = {
   sectionTitle: string;
   productType: "eletronics" | "appleProducts" | "jewelery";
+  cartItems: Product[];
+  addItemToCart: (newItem: Product) => void;
+  toggleCart: () => void;
 };
 
 const SellingSection: React.FC<SellingSectionProps> = ({
   sectionTitle,
   productType,
+  cartItems,
+  addItemToCart,
+  toggleCart,
 }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -97,9 +92,8 @@ const SellingSection: React.FC<SellingSectionProps> = ({
           eletronics.map((item: ProductProps) => (
             <ProductCard
               key={item.id}
-              productPrice={item.price}
-              productTitle={item.title}
-              productImage={item.image}
+              product={item}
+              onAddItemToCart={addItemToCart}
             />
           ))}
 
@@ -109,9 +103,8 @@ const SellingSection: React.FC<SellingSectionProps> = ({
           appleProducts.map((item: ProductProps) => (
             <ProductCard
               key={item.id}
-              productPrice={item.price}
-              productTitle={item.name}
-              productImage={item.photo}
+              product={item}
+              onAddItemToCart={addItemToCart}
             />
           ))}
 
@@ -121,9 +114,8 @@ const SellingSection: React.FC<SellingSectionProps> = ({
           jewelery.map((item: ProductProps) => (
             <ProductCard
               key={item.id}
-              productPrice={item.price}
-              productTitle={item.title}
-              productImage={item.image}
+              product={item}
+              onAddItemToCart={addItemToCart}
             />
           ))}
 

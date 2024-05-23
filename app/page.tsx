@@ -7,8 +7,8 @@ import { FaXTwitter } from "react-icons/fa6";
 import { TiSocialLinkedin } from "react-icons/ti";
 
 import ServiceCard from "./components/ServiceCard";
-import SellingSection from "./components/SellingSection";
 import Image from "next/image";
+import ParentSellingSection from "./components/ParentSellingSection";
 
 export default function Home() {
   return (
@@ -61,12 +61,7 @@ export default function Home() {
         />
       </section>
       <section id="products" className="flex flex-col w-full">
-        <SellingSection sectionTitle="Apple" productType="appleProducts" />
-        <SellingSection
-          sectionTitle="Eletronic acessories"
-          productType="eletronics"
-        />
-        <SellingSection sectionTitle="Jewelery" productType="jewelery" />
+        <ParentSellingSection />
       </section>
       <section
         id="sale"
@@ -100,14 +95,19 @@ export default function Home() {
           SHOP SALE
         </button>
       </section>
-      <section className="grid grid-cols-4 justify-center gap-10 px-20">
-        <div className="flex flex-col">
-          <h1>Ecommerce©</h1>
-          <p>
-            Rem Lopsum dolor sit amet, consectetur adipi elit.Amet consectetur
-            adipi elit loreme ipsum dolor sit.
+      <section
+        id="contact"
+        className="grid grid-cols-4 justify-center items-start opacity-70 gap-10 px-20 py-8 h-60"
+      >
+        <div className="flex flex-col gap-4">
+          <h1 className="text-gradient font-bold text-3xl">
+            Ecommerce<span className="text-xs">©</span>
+          </h1>
+          <p className="text-gray-600">
+            Rem Lopsum, consectetur adipi elit.Amet consectetur adipi elit
+            loreme ipsum dolor sit.
           </p>
-          <div className="flex">
+          <div className="flex items-center gap-6 text-gray-800 text-lg">
             <a href="">
               <FaFacebookF />
             </a>
@@ -117,7 +117,7 @@ export default function Home() {
             <a href="">
               <FaXTwitter />
             </a>
-            <a href="">
+            <a href="" className="text-2xl">
               <TiSocialLinkedin />
             </a>
             <a href="">
@@ -126,35 +126,45 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col justify-center">
-          <h1>QUICK LINKS</h1>
-          <h2>HOME</h2>
-          <h2>ABOUT</h2>
-          <h2>SHOP</h2>
-          <h2>BLOGS</h2>
-          <h2>CONTACT</h2>
+          <h1 className="font-bold text-xl">QUICK LINKS</h1>
+          <div className="mt-3 flex flex-col leading-7">
+            <a>HOME</a>
+            <a>ABOUT</a>
+            <a>SHOP</a>
+            <a>BLOGS</a>
+            <a>CONTACT</a>
+          </div>
         </div>
-        <div className="flex flex-col">
-          <h1>HELP & INFO HELP</h1>
-          <h2>TRACK YOUR ORDER</h2>
-          <h2>RETURNS POLICIES</h2>
-          <h2>SHIPPING + DELIVERY</h2>
-          <h2>CONTACT US</h2>
-          <h2>FAQS</h2>
+        <div className="flex flex-col justify-center">
+          <h1 className="font-bold text-xl">HELP & INFO HELP</h1>
+          <div className="mt-3 flex flex-col leading-7">
+            <a>TRACK YOUR ORDER</a>
+            <a>RETURNS POLICIES</a>
+            <a>SHIPPING + DELIVERY</a>
+            <a>CONTACT US</a>
+            <a>FAQS</a>
+          </div>
         </div>
 
-        <div className="flex flex-col">
-          <h2>contact us</h2>
-          <div>
-            <p>Do you have any queries or suggestions?</p>
+        <div className="flex flex-col leading-7 gap-4">
+          <h1 className="font-bold text-xl uppercase">contact us</h1>
+          <div className="text-nowrap">
+            <p className="text-gray-600">
+              Do you have any queries or suggestions?
+            </p>
             <span>yourinfo@gmail.com</span>
           </div>
-          <div>
-            <p>If you need support? Just give us a call.</p>
+          <div className="text-base text-nowrap">
+            <p className="text-gray-600">
+              If you need support? Just give us a call.
+            </p>
             <span>+55 111 222 333 44</span>
           </div>
         </div>
       </section>
-      <footer></footer>
+      <footer className="flex w-full items-center justify-center py-4 border-t-2 border-gray-300 text-gray-500">
+        &copy; Copyright 2024 Caahbarretoz. All rights reserved.
+      </footer>
     </main>
   );
 }
