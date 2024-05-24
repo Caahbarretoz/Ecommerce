@@ -4,11 +4,17 @@ import { Product } from "./ProductCard";
 type ItemCartDropdownProps = {
   product: Product;
   removeItemFromCart: (itemToRemove: Product) => void;
+  lessItemQuantity: (item: Product) => void;
+  moreItemQuantity: (item: Product) => void;
+  itemQuantity: number;
 };
 
 const ItemCartDropdown = ({
   product,
   removeItemFromCart,
+  lessItemQuantity,
+  moreItemQuantity,
+  itemQuantity,
 }: ItemCartDropdownProps) => {
   return (
     <div className="relative flex shrink-0 items-center mt-5 rounded-lg bg-white border-2 shadow-xl w-80 h-24">
@@ -29,13 +35,19 @@ const ItemCartDropdown = ({
         </h1>
       </div>
       <div className="ml-2 flex items-center w-14 h-5 rounded border-2 border-gray-200">
-        <div className="cursor-pointer flex items-center justify-center text-xs font-light w-1/3 border-r-2 border-gray-200">
+        <div
+          className="cursor-pointer flex items-center justify-center text-xs font-light w-1/3 border-r-2 border-gray-200"
+          onClick={() => lessItemQuantity(product)}
+        >
           -
         </div>
         <div className="flex items-center justify-center text-xs font-light w-1/3">
-          1
+          {product.quantity}
         </div>
-        <div className="cursor-pointer flex items-center justify-center text-xs font-light w-1/3 border-l-2 border-gray-200">
+        <div
+          className="cursor-pointer flex items-center justify-center text-xs font-light w-1/3 border-l-2 border-gray-200"
+          onClick={() => moreItemQuantity(product)}
+        >
           +
         </div>
       </div>

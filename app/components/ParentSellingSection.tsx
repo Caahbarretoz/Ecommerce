@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SellingSection from "./SellingSection";
 import CartDropdown from "./CartDropdown";
 import { Product } from "./ProductCard";
@@ -7,6 +7,7 @@ import { BsBag } from "react-icons/bs";
 
 const ParentSellingSection = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [itemQuantity, setItemQuantity] = useState<Product[]>();
   const [openModal, setOpenModal] = useState(false);
 
   const addItemToCart = (newItem: Product) => {
@@ -18,6 +19,9 @@ const ParentSellingSection = () => {
       prevItems.filter((item) => item.id !== itemToRemove.id)
     );
   }
+
+  function lessItemQuantity(item: Product) {}
+  function moreItemQuantity(item: Product) {}
 
   const toggleCart = () => {
     setOpenModal(!openModal);
@@ -54,6 +58,9 @@ const ParentSellingSection = () => {
         cartItems={cartItems}
         toggleCart={toggleCart}
         removeItemFromCart={removeItemFromCart}
+        itemQuantity={1}
+        lessItemQuantity={lessItemQuantity}
+        moreItemQuantity={moreItemQuantity}
       />
 
       <button

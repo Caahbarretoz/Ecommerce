@@ -9,4 +9,5 @@ export interface ProductProps {
   name: string;
   brand: string;
   photo: string;
+  quantity: number;
 }

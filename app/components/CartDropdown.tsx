@@ -9,6 +9,9 @@ type CartDropdownProps = {
   cartItems: Product[];
   toggleCart: () => void;
   removeItemFromCart: (itemToRemove: Product) => void;
+  lessItemQuantity: (item: Product) => void;
+  moreItemQuantity: (item: Product) => void;
+  itemQuantity: number;
 };
 
 const CartDropdown = ({
@@ -16,6 +19,9 @@ const CartDropdown = ({
   cartItems,
   toggleCart,
   removeItemFromCart,
+  lessItemQuantity,
+  moreItemQuantity,
+  itemQuantity,
 }: CartDropdownProps) => {
   const [cartItemsList, setCartItemsList] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -58,6 +64,9 @@ const CartDropdown = ({
               key={item.id}
               product={item}
               removeItemFromCart={removeItemFromCart}
+              lessItemQuantity={lessItemQuantity}
+              moreItemQuantity={moreItemQuantity}
+              itemQuantity={item.quantity}
             />
           ))
         ) : (

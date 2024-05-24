@@ -8,6 +8,7 @@ export interface Product {
   name?: string;
   photo?: string;
   id: number;
+  quantity: number;
 }
 
 type ProductCardProps = {
