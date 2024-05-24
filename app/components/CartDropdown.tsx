@@ -8,9 +8,15 @@ type CartDropdownProps = {
   isOpen: boolean;
   cartItems: Product[];
   toggleCart: () => void;
+  removeItemFromCart: (itemToRemove: Product) => void;
 };
 
-const CartDropdown = ({ isOpen, cartItems, toggleCart }: CartDropdownProps) => {
+const CartDropdown = ({
+  isOpen,
+  cartItems,
+  toggleCart,
+  removeItemFromCart,
+}: CartDropdownProps) => {
   const [cartItemsList, setCartItemsList] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -48,7 +54,11 @@ const CartDropdown = ({ isOpen, cartItems, toggleCart }: CartDropdownProps) => {
       <div className="flex flex-col items-center overflow-y-auto w-full scrollbar-hide mb-36 pb-5 ">
         {cartItemsList.length > 0 ? (
           cartItemsList.map((item) => (
-            <ItemCartDropdown key={item.id} product={item} />
+            <ItemCartDropdown
+              key={item.id}
+              product={item}
+              removeItemFromCart={removeItemFromCart}
+            />
           ))
         ) : (
           <h1 className="mt-5">Empty Cart!</h1>

@@ -1,13 +1,23 @@
-import React from "react";
+import { MdOutlineDeleteForever } from "react-icons/md";
 import { Product } from "./ProductCard";
 
 type ItemCartDropdownProps = {
   product: Product;
+  removeItemFromCart: (itemToRemove: Product) => void;
 };
 
-const ItemCartDropdown = ({ product }: ItemCartDropdownProps) => {
+const ItemCartDropdown = ({
+  product,
+  removeItemFromCart,
+}: ItemCartDropdownProps) => {
   return (
-    <div className="flex shrink-0 items-center mt-5 rounded-lg bg-white border-2 shadow-xl w-80 h-24">
+    <div className="relative flex shrink-0 items-center mt-5 rounded-lg bg-white border-2 shadow-xl w-80 h-24">
+      <div
+        onClick={() => removeItemFromCart(product)}
+        className="absolute -right-2 -top-2 text-xs rounded-full w-5 h-5 cursor-pointer text-white bg-stone-900 bg-opacity-80 hover:bg-opacity-100 flex items-center justify-center"
+      >
+        <MdOutlineDeleteForever />
+      </div>
       <img
         className="ml-3 object-fill h-16 w-16"
         src={product.image ?? product.photo}

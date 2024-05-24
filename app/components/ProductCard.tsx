@@ -7,7 +7,7 @@ export interface Product {
   image?: string;
   name?: string;
   photo?: string;
-  id?: number;
+  id: number;
 }
 
 type ProductCardProps = {

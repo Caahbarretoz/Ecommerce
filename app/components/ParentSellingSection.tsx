@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SellingSection from "./SellingSection";
 import CartDropdown from "./CartDropdown";
 import { Product } from "./ProductCard";
@@ -12,6 +12,12 @@ const ParentSellingSection = () => {
   const addItemToCart = (newItem: Product) => {
     setCartItems((prevItems) => [...prevItems, newItem]);
   };
+
+  function removeItemFromCart(itemToRemove: Product) {
+    setCartItems((prevItems) =>
+      prevItems.filter((item) => item.id !== itemToRemove.id)
+    );
+  }
 
   const toggleCart = () => {
     setOpenModal(!openModal);
@@ -47,11 +53,12 @@ const ParentSellingSection = () => {
         isOpen={openModal}
         cartItems={cartItems}
         toggleCart={toggleCart}
+        removeItemFromCart={removeItemFromCart}
       />
 
       <button
         onClick={toggleCart}
-        className="fixed bottom-5 right-5 bg-principal text-white p-3 rounded-full"
+        className="fixed bottom-5 right-5 bg-principal text-white p-3 rounded-full z-50"
       >
         <BsBag />
       </button>
