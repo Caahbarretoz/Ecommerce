@@ -51,7 +51,9 @@ const ItemCartDropdown = ({
           +
         </div>
       </div>
-      <h1 className="ml-4 font-bold text-sm">${product.price}</h1>
+      <h1 className="ml-4 font-bold text-sm">
+        ${product.price * product.quantity}
+      </h1>
     </div>
   );
 };

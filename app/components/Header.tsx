@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { BsBag } from "react-icons/bs";
+import { BsCart } from "react-icons/bs";
 import CartDropdown from "./CartDropdown";
 
 const Header = () => {
@@ -81,7 +81,7 @@ const Header = () => {
             <IoIosSearch />
           </button>
           <button className="hover:text-hover">
-            <BsBag />
+            <BsCart />
           </button>
         </div>
       </header>

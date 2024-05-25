@@ -38,7 +38,10 @@ const CartDropdown = ({
 
   useEffect(() => {
     if (cartItemsList.length > 0) {
-      const total = cartItemsList.reduce((sum, item) => sum + item.price, 0);
+      const total = cartItemsList.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+      );
       setTotalPrice(total);
     }
   }, [cartItemsList]);

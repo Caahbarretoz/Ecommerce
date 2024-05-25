@@ -7,11 +7,22 @@ import { BsBag } from "react-icons/bs";
 
 const ParentSellingSection = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [itemQuantity, setItemQuantity] = useState<Product[]>();
   const [openModal, setOpenModal] = useState(false);
 
   const addItemToCart = (newItem: Product) => {
-    setCartItems((prevItems) => [...prevItems, newItem]);
+    setCartItems((prevItems) => {
+      const existingItemIndex = prevItems.findIndex(
+        (item) => item.id === newItem.id
+      );
+
+      if (existingItemIndex !== -1) {
+        const updatedItems = [...prevItems];
+        updatedItems[existingItemIndex].quantity += 1;
+        return updatedItems;
+      } else {
+        return [...prevItems, { ...newItem, quantity: 1 }];
+      }
+    });
   };
 
   function removeItemFromCart(itemToRemove: Product) {
@@ -20,8 +31,29 @@ const ParentSellingSection = () => {
     );
   }
 
-  function lessItemQuantity(item: Product) {}
-  function moreItemQuantity(item: Product) {}
+  const lessItemQuantity = (item: Product) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems
+        .map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity - 1 }
+            : cartItem
+        )
+        .filter((cartItem) => cartItem.quantity > 0);
+      return updatedItems;
+    });
+  };
+
+  const moreItemQuantity = (item: Product) => {
+    setCartItems((prevItems) => {
+      const updatedItems = prevItems.map((cartItem) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: cartItem.quantity + 1 }
+          : cartItem
+      );
+      return updatedItems;
+    });
+  };
 
   const toggleCart = () => {
     setOpenModal(!openModal);
@@ -58,7 +90,7 @@ const ParentSellingSection = () => {
         cartItems={cartItems}
         toggleCart={toggleCart}
         removeItemFromCart={removeItemFromCart}
-        itemQuantity={1}
+        itemQuantity={0}
         lessItemQuantity={lessItemQuantity}
         moreItemQuantity={moreItemQuantity}
       />
