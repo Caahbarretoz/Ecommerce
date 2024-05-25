@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SellingSection from "./SellingSection";
 import CartDropdown from "./CartDropdown";
 import { Product } from "./ProductCard";
@@ -7,6 +7,7 @@ import { BsBag } from "react-icons/bs";
 
 const ParentSellingSection = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [totalItems, setTotalItems] = useState();
   const [openModal, setOpenModal] = useState(false);
 
   const addItemToCart = (newItem: Product) => {
@@ -58,6 +59,8 @@ const ParentSellingSection = () => {
   const toggleCart = () => {
     setOpenModal(!openModal);
   };
+
+  useEffect(() => {}, [cartItems]);
 
   return (
     <div>

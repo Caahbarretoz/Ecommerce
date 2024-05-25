@@ -18,14 +18,12 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
-  const [buttonText, setButtonText] = useState(<TbShoppingBagPlus />);
+  const [clicked, setClicked] = useState(false);
 
-  const changeButtonIcon = () => {
-    setButtonText(<MdDone />);
-  };
-
-  const changeButtonIconDefault = () => {
-    setButtonText(<TbShoppingBagPlus />);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onAddItemToCart(product);
+    setClicked(true);
+    setTimeout(() => setClicked(false), 1000);
   };
 
   return (
@@ -43,12 +41,12 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
         </h1>
         <span className="mt-auto text-gray-600">${product.price}</span>
         <button
-          onClick={() => onAddItemToCart(product)}
-          onFocus={changeButtonIcon}
-          onBlur={changeButtonIconDefault}
-          className="absolute bottom-5 right-5 text-white bg-principal opacity-85 text-lg py-3 px-3 rounded-full hover:opacity-100 focus:bg-green-500"
+          onClick={handleClick}
+          className={`absolute bottom-5 right-5 text-white bg-principal opacity-85 text-lg py-3 px-3 rounded-full hover:opacity-100 ${
+            clicked && "bg-green-500"
+          }`}
         >
-          {buttonText}
+          {clicked == true ? <MdDone /> : <TbShoppingBagPlus />}
         </button>
       </div>
     </div>
