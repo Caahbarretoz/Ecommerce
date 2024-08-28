@@ -60,7 +60,7 @@ const SellingSection: React.FC<SellingSectionProps> = ({
       setEletronics
     );
     getProducts(
-      "https://mks-frontend-challenge-04811e8151e6.herokuapp.com/api/v1/products?page=1&rows=8&sortBy=id&orderBy=ASC",
+      "https://dummyjson.com/products/category/smartphones",
       setAppleProducts
     );
     getProducts(
@@ -75,7 +75,10 @@ const SellingSection: React.FC<SellingSectionProps> = ({
         <h1 className="text-4xl uppercase opacity-80 text-principal">
           {sectionTitle}
         </h1>
-        <a className="ml-auto flex items-center underline uppercase" href="">
+        <a
+          className="ml-auto flex items-center underline uppercase"
+          href="/shop"
+        >
           go to shop
           <span className="pl-3 text-principal">
             <FaArrowRight />

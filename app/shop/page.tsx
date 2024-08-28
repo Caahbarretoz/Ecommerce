@@ -1,13 +1,50 @@
 "use client";
-import { useEffect, useState } from "react";
-import SellingSection from "./SellingSection";
-import CartDropdown from "./CartDropdown";
-import { Product } from "./ProductCard";
-import { BsBag } from "react-icons/bs";
 
-const ParentSellingSection = () => {
+import { BsBag } from "react-icons/bs";
+import CartDropdown from "../components/CartDropdown";
+import { Product } from "@/app/components/ProductCard";
+import ShopFilter from "./components/ShopFilter";
+import { useState, useEffect } from "react";
+import ProductCard from "@/app/components/ProductCard";
+import { ProductProps } from "@/app/components/interfaces-types";
+
+const Page = () => {
+  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
+  const [uniqueBrands, setUniqueBrands] = useState<string[]>([]);
+
+  async function getProducts(url: string, api: string) {
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (api === "fakestore") {
+        setProducts((prevItems) => [...prevItems, ...data]);
+      } else {
+        setProducts((prevItems) => [...prevItems, ...data.products]);
+      }
+    } catch (error) {
+      console.error("Erro ao buscar produtos:", error);
+    }
+  }
+
+  useEffect(() => {
+    getProducts("https://dummyjson.com/products/category/smartphones", "mks");
+    getProducts("https://fakestoreapi.com/products", "fakestore");
+  }, []);
+
+  useEffect(() => {
+    // Extrair categorias dos produtos e remover duplicatas
+    const allCategories = products.map((product) => product.category);
+    const uniqueCategoriesSet = new Set(allCategories);
+    setUniqueCategories([...uniqueCategoriesSet]);
+
+    const allBrands = products.map((product) => product.brand);
+    const uniqueBrandsSet = new Set(allBrands);
+    setUniqueBrands([...uniqueBrandsSet]);
+  }, [products]);
+
   const [cartItems, setCartItems] = useState<Product[]>([]);
-  const [totalItems, setTotalItems] = useState(0);
+  const [totalItems, setTotalItems] = useState();
   const [openModal, setOpenModal] = useState(false);
 
   const addItemToCart = (newItem: Product) => {
@@ -73,32 +110,24 @@ const ParentSellingSection = () => {
       localStorage.setItem("cart", JSON.stringify(cartItems));
     }
   }, [cartItems]);
-  return (
-    <div>
-      <section id="products" className="flex flex-col w-full">
-        <SellingSection
-          sectionTitle="Apple"
-          productType="appleProducts"
-          cartItems={cartItems}
-          addItemToCart={addItemToCart}
-          toggleCart={toggleCart}
-        />
-        <SellingSection
-          sectionTitle="Eletronic accessories"
-          productType="eletronics"
-          cartItems={cartItems}
-          addItemToCart={addItemToCart}
-          toggleCart={toggleCart}
-        />
-        <SellingSection
-          sectionTitle="Jewelery"
-          productType="jewelery"
-          cartItems={cartItems}
-          addItemToCart={addItemToCart}
-          toggleCart={toggleCart}
-        />
-      </section>
 
+  return (
+    <div className="pt-16 grid grid-cols-7 w-full h-screen bg-[#efefef]">
+      <div className="col-span-2">
+        <ShopFilter categorys={uniqueCategories} brands={uniqueBrands} />
+      </div>
+      <div className="col-span-5 overflow-auto">
+        <div className="relative flex flex-wrap justify-center gap-5 pt-3 w-full h-full">
+          {products.length > 0 &&
+            products.map((item: ProductProps) => (
+              <ProductCard
+                key={item.id}
+                product={item}
+                onAddItemToCart={addItemToCart}
+              />
+            ))}
+        </div>
+      </div>
       <CartDropdown
         isOpen={openModal}
         cartItems={cartItems}
@@ -119,4 +148,4 @@ const ParentSellingSection = () => {
   );
 };
 
-export default ParentSellingSection;
+export default Page;

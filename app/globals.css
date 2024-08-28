@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,10 +27,29 @@
     font-style: normal;
   }
 
+.bodoni-regular {
+  font-family: "Bodoni Moda SC", sans-serif;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     font-family: "Poppins" ;
     background-color: #fff;
     width: 100vw;
+}
+
+.slider .thumb {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  background-color: #27272a;
+  border-radius: 50%;
+  border: 2px solid #27272a;
+}
+
+.slider .track-1 {
+  background: #27272a;
+  height: 8px;
+  border-radius: 5px;
 }

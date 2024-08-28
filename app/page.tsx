@@ -15,7 +15,7 @@ export default function Home() {
     <main className="flex flex-col items-center w-screen mt-16">
       <section
         id="home"
-        className="relative flex pt-16 bg-stone-950 w-full h-[700px]"
+        className="relative flex pt-16 bg-stone-950 w-full h-screen"
       >
         <h1 className="text-gradient w-1/2 text-9xl pl-10">
           YOUR <br /> PRODUCTS <br /> ARE <br /> GREAT.

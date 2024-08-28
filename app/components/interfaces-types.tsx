@@ -3,6 +3,7 @@ export interface ProductProps {
   description: string;
   id: number;
   image: string;
+  images: string;
   price: number;
   rating: object;
   title: string;

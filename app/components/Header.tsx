@@ -37,7 +37,7 @@ const Header = () => {
         } w-screen h-16 z-50 transition-all duration-500`}
       >
         <a
-          href="#"
+          href="/"
           className=" ml-5 transition-all duration-500 hover:scale-105"
         >
           <span className="text-3xl text-gradient">Ecommerce</span>
@@ -45,32 +45,32 @@ const Header = () => {
         </a>
         <div className="flex text-principal space-x-6 ml-auto ">
           <a
-            href="#home"
+            href="/#home"
             className="hover:text-hover transition-all duration-500"
           >
             Home
           </a>
           <a
-            href="#services"
+            href="/#services"
             className="hover:text-hover transition-all duration-500"
           >
             Services
           </a>
           <a
-            href="#products"
+            href="/#products"
             className="hover:text-hover transition-all duration-500"
           >
             Products
           </a>
 
           <a
-            href="#sale"
+            href="/#sale"
             className="hover:text-hover transition-all duration-500"
           >
             Sale
           </a>
           <a
-            href="#contact"
+            href="/#contact"
             className="hover:text-hover transition-all duration-500"
           >
             Contact

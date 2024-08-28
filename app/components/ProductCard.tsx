@@ -6,6 +6,7 @@ export interface Product {
   price: number;
   title?: string;
   image?: string;
+  images?: string;
   name?: string;
   photo?: string;
   id: number;
@@ -31,7 +32,7 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
       <div className="flex justify-center items-center w-full h-96 ">
         <img
           className=" max-h-72 object-cover"
-          src={product.image ?? product.photo}
+          src={product.image ?? product.photo ?? product.images[0]}
         />
       </div>
 
@@ -42,8 +43,8 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
         <span className="mt-auto text-gray-600">${product.price}</span>
         <button
           onClick={handleClick}
-          className={`absolute bottom-5 right-5 text-white bg-principal opacity-85 text-lg py-3 px-3 rounded-full hover:opacity-100 ${
-            clicked && "bg-green-500"
+          className={`absolute bottom-5 right-5 text-white  opacity-85 text-lg py-3 px-3 rounded-full hover:opacity-100  ${
+            clicked ? "bg-green-500" : "bg-principal"
           }`}
         >
           {clicked == true ? <MdDone /> : <TbShoppingBagPlus />}
