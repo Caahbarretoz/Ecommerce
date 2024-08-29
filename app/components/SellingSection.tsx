@@ -10,15 +10,13 @@ type SellingSectionProps = {
   productType: "eletronics" | "appleProducts" | "jewelery";
   cartItems: Product[];
   addItemToCart: (newItem: Product) => void;
-  toggleCart: () => void;
 };
 
 const SellingSection: React.FC<SellingSectionProps> = ({
   sectionTitle,
   productType,
-  cartItems,
+
   addItemToCart,
-  toggleCart,
 }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
