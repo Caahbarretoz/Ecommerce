@@ -47,21 +47,64 @@ const Page = () => {
 
   const { addItemToCart } = useCart();
 
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedPrice, setSelectedprice] = useState([0, 3000]);
+
+  const filterSelectedBrands = (brand) => {
+    setSelectedBrand(brand);
+  };
+
+  const filterSelectedCategories = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const filterSelectedPrice = (price) => {
+    setSelectedprice(price);
+  };
+
   return (
     <div className="pt-16 grid grid-cols-7 w-full h-screen bg-[#efefef]">
       <div className="col-span-2">
-        <ShopFilter categorys={uniqueCategories} brands={uniqueBrands} />
+        <ShopFilter
+          categorys={uniqueCategories}
+          brands={uniqueBrands}
+          filterSelectedCategories={filterSelectedCategories}
+          filterSelectedBrands={filterSelectedBrands}
+          filterSelectedPrice={filterSelectedPrice}
+        />
       </div>
       <div className="col-span-5 overflow-auto">
         <div className="relative flex flex-wrap justify-center gap-5 pt-3 w-full h-full">
           {products.length > 0 &&
-            products.map((item: ProductProps) => (
-              <ProductCard
-                key={item.id}
-                product={item}
-                onAddItemToCart={addItemToCart}
-              />
-            ))}
+            products.map((product: ProductProps) =>
+              (selectedCategory == "" &&
+                selectedBrand == "" &&
+                product.price >= selectedPrice[0] &&
+                product.price <= selectedPrice[1]) ||
+              (selectedCategory != "" &&
+                selectedBrand != "" &&
+                selectedCategory.includes(product.category) &&
+                selectedBrand.includes(product.brand) &&
+                product.price >= selectedPrice[0] &&
+                product.price <= selectedPrice[1]) ||
+              (selectedCategory != "" &&
+                selectedBrand == "" &&
+                selectedCategory.includes(product.category) &&
+                product.price >= selectedPrice[0] &&
+                product.price <= selectedPrice[1]) ||
+              (selectedCategory == "" &&
+                selectedBrand != "" &&
+                selectedBrand.includes(product.brand) &&
+                product.price >= selectedPrice[0] &&
+                product.price <= selectedPrice[1]) ? (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddItemToCart={addItemToCart}
+                />
+              ) : null
+            )}
         </div>
       </div>
     </div>

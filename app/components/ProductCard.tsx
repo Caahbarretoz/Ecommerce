@@ -29,12 +29,15 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
 
   return (
     <div className="relative flex flex-shrink-0 flex-col justify-end p-7 bg-white w-80 h-[30rem] shadow-gray-300 shadow-lg rounded-3xl cursor-pointer transition-all duration-500 hover:scale-105">
-      <div className="flex justify-center items-center w-full h-96 ">
+      <a
+        href="/product"
+        className="flex justify-center items-center w-full h-96 "
+      >
         <img
           className=" max-h-72 object-cover"
           src={product.image ?? product.photo ?? product.images[0]}
         />
-      </div>
+      </a>
 
       <div className="flex flex-col justify-start w-full h-1/3 pt-2">
         <h1 className="font-bold opacity-85 text-wrap text-lg tracking-wide truncate line-clamp-2">

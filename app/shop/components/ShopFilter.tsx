@@ -1,12 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import Slider from "react-slider";
 
-const ShopFilter = ({ categorys, brands }) => {
+const ShopFilter = ({
+  categorys,
+  brands,
+  filterSelectedCategories,
+  filterSelectedBrands,
+  filterSelectedPrice,
+}) => {
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+
+  function handleCategorieClick(category: string) {
+    setSelectedCategories((prevSelected) => {
+      if (prevSelected.includes(category)) {
+        // Se já estiver clicado, remove do array (desmarca)
+        return prevSelected.filter((i) => i !== category);
+      } else {
+        // Se não estiver clicado, adiciona ao array (marca)
+        return [...prevSelected, category];
+      }
+    });
+  }
+
+  function handleBrandClick(brand: string) {
+    setSelectedBrands((prevSelected) => {
+      if (prevSelected.includes(brand)) {
+        // Se já estiver clicado, remove do array (desmarca)
+        return prevSelected.filter((i) => i !== brand);
+      } else {
+        // Se não estiver clicado, adiciona ao array (marca)
+        return [...prevSelected, brand];
+      }
+    });
+  }
+
+  useEffect(() => {
+    filterSelectedBrands(selectedBrands);
+  }, [selectedBrands]);
+
+  useEffect(() => {
+    filterSelectedCategories(selectedCategories);
+  }, [selectedCategories]);
+
   const min = 0;
-  const max = 1000;
+  const max = 3000;
   const [values, setValues] = useState([min, max]);
+
+  useEffect(() => {
+    filterSelectedPrice(values);
+  }, [values]);
 
   const handleMinInputChange = (e) => {
     const value = Math.min(Number(e.target.value), values[1] - 1);
@@ -93,14 +138,19 @@ const ShopFilter = ({ categorys, brands }) => {
           {categorys.length > 0 ? (
             categorys.map((category, index) => (
               <span
-                className="cursor-pointer border-2 p-3 border-zinc-800"
+                className={`cursor-pointer border-2 p-3 border-zinc-800 ${
+                  selectedCategories.includes(category)
+                    ? "bg-slate-500"
+                    : "bg-transparent"
+                }`}
                 key={index}
+                onClick={() => handleCategorieClick(category)}
               >
                 {category}
               </span>
             ))
           ) : (
-            <span>No brands available</span>
+            <span>No categories available</span>
           )}
         </div>
       </div>
@@ -122,15 +172,20 @@ const ShopFilter = ({ categorys, brands }) => {
               (brand, index) =>
                 brand && (
                   <span
-                    className="cursor-pointer border-2 p-3 border-zinc-800"
+                    className={`cursor-pointer border-2 p-3 border-zinc-800  ${
+                      selectedBrands.includes(brand)
+                        ? "bg-slate-500"
+                        : "bg-transparent"
+                    }`}
                     key={index}
+                    onClick={() => handleBrandClick(brand)}
                   >
                     {brand}
                   </span>
                 )
             )
           ) : (
-            <span>No categories available</span>
+            <span>No brands available</span>
           )}
         </div>
       </div>
