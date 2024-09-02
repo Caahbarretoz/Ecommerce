@@ -27,10 +27,15 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
     setTimeout(() => setClicked(false), 1000);
   };
 
+  function setProduct() {
+    localStorage.setItem("product", JSON.stringify(product));
+  }
+
   return (
     <div className="relative flex flex-shrink-0 flex-col justify-end p-7 bg-white w-80 h-[30rem] shadow-gray-300 shadow-lg rounded-3xl cursor-pointer transition-all duration-500 hover:scale-105">
       <a
         href="/product"
+        onClick={setProduct}
         className="flex justify-center items-center w-full h-96 "
       >
         <img
