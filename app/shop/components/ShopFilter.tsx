@@ -3,13 +3,21 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import Slider from "react-slider";
 
+interface ShopFilterType {
+  categorys: string[];
+  brands: string[];
+  filterSelectedCategories: (categories: string[]) => void;
+  filterSelectedBrands: (brands: string[]) => void;
+  filterSelectedPrice: (prices: number[]) => void;
+}
+
 const ShopFilter = ({
   categorys,
   brands,
   filterSelectedCategories,
   filterSelectedBrands,
   filterSelectedPrice,
-}) => {
+}: ShopFilterType) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
@@ -53,13 +61,13 @@ const ShopFilter = ({
     filterSelectedPrice(values);
   }, [values]);
 
-  const handleMinInputChange = (e) => {
+  const handleMinInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.min(Number(e.target.value), values[1] - 1);
     setValues([value, values[1]]);
   };
 
   // Função para atualizar o valor máximo
-  const handleMaxInputChange = (e) => {
+  const handleMaxInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Math.max(Number(e.target.value), values[0] + 1);
     setValues([values[0], value]);
   };

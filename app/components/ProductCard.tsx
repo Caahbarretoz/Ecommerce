@@ -40,7 +40,7 @@ const ProductCard = ({ product, onAddItemToCart }: ProductCardProps) => {
       >
         <img
           className=" max-h-72 object-cover"
-          src={product.image ?? product.photo ?? product.images[0]}
+          src={product.image ?? product.photo ?? product.images?.[0]}
         />
       </a>
 

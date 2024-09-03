@@ -1,10 +1,29 @@
 // CartContext.jsx
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { Product } from "./ProductCard";
 
-const CartContext = createContext(null);
+interface CartContextType {
+  cartItems: Product[];
+  addItemToCart: (itemToAdd: Product) => void;
+  addSingleProductToCart: (newItem: Product, quantityItem: number) => void;
+  removeItemFromCart: (itemToRemove: Product) => void;
+  lessItemQuantity: (item: Product) => void;
+  moreItemQuantity: (item: Product) => void;
+}
 
-export const useCart = () => {
+interface CartProviderProps {
+  children: React.ReactNode;
+}
+
+const CartContext = createContext<CartContextType | null>(null);
+
+export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
   if (!context) {
     throw new Error("useCart must be used within a CartProvider");
@@ -12,13 +31,13 @@ export const useCart = () => {
   return context;
 };
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children }: CartProviderProps) => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Carregar o carrinho do localStorage na inicialização
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(cart);
   }, []);
 

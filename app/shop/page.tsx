@@ -15,7 +15,8 @@ const Page = () => {
       const res = await fetch(url);
       const data = await res.json();
       setProducts((prevItems) => {
-        const newProducts = api === "fakestore" ? data : data.products;
+        const newProducts: ProductProps[] =
+          api === "fakestore" ? data : data.products;
 
         // Filtrar produtos duplicados
         const filteredProducts = newProducts.filter(
@@ -47,19 +48,19 @@ const Page = () => {
 
   const { addItemToCart } = useCart();
 
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [selectedPrice, setSelectedprice] = useState([0, 3000]);
 
-  const filterSelectedBrands = (brand) => {
+  const filterSelectedBrands = (brand: string[]) => {
     setSelectedBrand(brand);
   };
 
-  const filterSelectedCategories = (category) => {
+  const filterSelectedCategories = (category: string[]) => {
     setSelectedCategory(category);
   };
 
-  const filterSelectedPrice = (price) => {
+  const filterSelectedPrice = (price: number[]) => {
     setSelectedprice(price);
   };
 
@@ -78,23 +79,23 @@ const Page = () => {
         <div className="relative flex flex-wrap justify-center gap-5 pt-3 w-full h-full">
           {products.length > 0 &&
             products.map((product: ProductProps) =>
-              (selectedCategory == "" &&
-                selectedBrand == "" &&
+              (selectedCategory.length === 0 &&
+                selectedBrand.length === 0 &&
                 product.price >= selectedPrice[0] &&
                 product.price <= selectedPrice[1]) ||
-              (selectedCategory != "" &&
-                selectedBrand != "" &&
+              (selectedCategory.length > 0 &&
+                selectedBrand.length > 0 &&
                 selectedCategory.includes(product.category) &&
                 selectedBrand.includes(product.brand) &&
                 product.price >= selectedPrice[0] &&
                 product.price <= selectedPrice[1]) ||
-              (selectedCategory != "" &&
-                selectedBrand == "" &&
+              (selectedCategory.length > 0 &&
+                selectedBrand.length === 0 &&
                 selectedCategory.includes(product.category) &&
                 product.price >= selectedPrice[0] &&
                 product.price <= selectedPrice[1]) ||
-              (selectedCategory == "" &&
-                selectedBrand != "" &&
+              (selectedCategory.length === 0 &&
+                selectedBrand.length > 0 &&
                 selectedBrand.includes(product.brand) &&
                 product.price >= selectedPrice[0] &&
                 product.price <= selectedPrice[1]) ? (

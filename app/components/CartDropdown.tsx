@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 import ItemCartDropdown from "./ItemCartDropdown";
 import { useCart } from "./CartProvider";
+import { Product } from "./ProductCard";
 
 type CartDropdownProps = {
   isOpen: boolean;
@@ -12,11 +13,11 @@ type CartDropdownProps = {
 const CartDropdown = ({ isOpen, toggleCart }: CartDropdownProps) => {
   const { cartItems, removeItemFromCart, lessItemQuantity, moreItemQuantity } =
     useCart();
-  const [cartItemsList, setCartItemsList] = useState([]);
+  const [cartItemsList, setCartItemsList] = useState<Product[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    if (cartItems) {
+    if (Array.isArray(cartItems)) {
       const productsWithPricesAsNumbers = cartItems.map((item) => ({
         ...item,
         price: Number(item.price),

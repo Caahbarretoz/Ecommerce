@@ -26,7 +26,7 @@ const ItemCartDropdown = ({
       </div>
       <img
         className="ml-3 object-fill h-16 w-16"
-        src={product.image ?? product.photo ?? product.images[0]}
+        src={product.image ?? product.photo ?? product.images?.[0]}
         alt=""
       />
       <div className="ml-2 w-16">

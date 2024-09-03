@@ -2,9 +2,10 @@
 import React, { useEffect, useState } from "react";
 import { IoStar } from "react-icons/io5";
 import { useCart } from "../components/CartProvider";
+import { ProductProps } from "../components/interfaces-types";
 
 const ProductPage = () => {
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState<ProductProps | null>(null);
   const [productQuantity, setProductQuantity] = useState(1);
 
   function moreQuantity() {
@@ -41,7 +42,7 @@ const ProductPage = () => {
         <div className="flex flex-col w-[40%]  pl-24 pt-16 gap-y-7">
           <div className="flex h-[90%] w-[93%] bg-white justify-center rounded shadow-gray-300 shadow-lg">
             <img
-              src={product.image ?? product.photo ?? product.images[0]}
+              src={product.image ?? product.photo ?? product.images?.[0]}
               alt=""
               className=" object-cover "
             />
