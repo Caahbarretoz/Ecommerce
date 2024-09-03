@@ -10,7 +10,7 @@ const ParentSellingSection = () => {
     <div>
       <section id="products" className="flex flex-col w-full">
         <SellingSection
-          sectionTitle="Apple"
+          sectionTitle="Smartphones"
           productType="appleProducts"
           cartItems={cartItems}
           addItemToCart={addItemToCart}
