@@ -52,7 +52,7 @@ const ItemCartDropdown = ({
         </div>
       </div>
       <h1 className="ml-4 font-bold text-sm">
-        ${product.price * product.quantity}
+        ${(product.price * product.quantity).toFixed(2)}
       </h1>
     </div>
   );

@@ -69,7 +69,7 @@ const CartDropdown = ({ isOpen, toggleCart }: CartDropdownProps) => {
       </div>
       {cartItemsList.length > 0 && (
         <div className="text-black absolute bottom-24 flex items-center justify-center py-2">
-          <span>Total: ${totalPrice}</span>
+          <span>Total: ${totalPrice.toFixed(2)}</span>
         </div>
       )}
       <div className="bg-principal opacity-85 hover:opacity-100 flex justify-center items-center absolute bottom-0 h-24 w-full cursor-pointer">
