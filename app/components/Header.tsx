@@ -2,28 +2,35 @@
 import { useState, useEffect } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { BsCart } from "react-icons/bs";
-import CartDropdown from "./CartDropdown";
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true); // Começa preto
 
   useEffect(() => {
     const handleScroll = () => {
       const secondSection = document.getElementById("services");
+
       if (secondSection) {
         const secondSectionTop = secondSection.getBoundingClientRect().top;
 
         if (secondSectionTop <= 0) {
-          setIsScrolled(true);
+          setIsScrolled(false); // Fora da seção "home", o header fica branco
         } else {
-          setIsScrolled(false);
+          setIsScrolled(true); // Dentro da seção "home", o header fica preto
         }
       }
     };
 
+    // Checar se a seção "home" existe ao carregar a página
+    const homeSectionExists = document.getElementById("home");
+    if (homeSectionExists) {
+      setIsScrolled(true); // Header preto ao iniciar na seção "home"
+    } else {
+      setIsScrolled(false); // Header branco se a seção "home" não existir
+    }
+
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup the event listener
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -33,7 +40,7 @@ const Header = () => {
     <>
       <header
         className={`flex items-center fixed top-0 ${
-          isScrolled ? "bg-white " : "bg-stone-950 "
+          isScrolled ? "bg-stone-950 " : "bg-white "
         } w-screen h-16 z-50 transition-all duration-500`}
       >
         <a

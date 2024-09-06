@@ -15,25 +15,17 @@ export default function Home() {
     <main className="flex flex-col items-center w-screen mt-16">
       <section
         id="home"
-        className="relative flex pt-16 bg-stone-950 w-full h-screen"
+        className="relative pt-16 flex  bg-stone-950 w-full h-screen justify-between"
       >
-        <h1 className="text-gradient w-1/2 text-9xl pl-10">
-          YOUR <br /> PRODUCTS <br /> ARE <br /> GREAT.
-        </h1>
-        <Image
-          className="absolute top-20 right-[28rem]"
-          src={"/assets/goldIphone.png"}
-          alt=""
-          width={250}
-          height={150}
-        />
-        <Image
-          className="absolute top-3 -right-20"
-          src={"/assets/iphones.png"}
-          alt=""
-          width={600}
-          height={400}
-        />
+        <div>
+          <h1 className="text-gradient   text-9xl pl-10 z-10">
+            YOUR <br /> PRODUCTS <br /> ARE <br /> GREAT.
+          </h1>
+        </div>
+        <div className="flex pr-16 gap-x-10 items-start ">
+          <img className=" h-[500px]" src={"/assets/goldIphone.png"} />
+          <img className="h-[540px]" src={"/assets/iphones.png"} />
+        </div>
       </section>
       <section
         id="services"
